@@ -6,9 +6,14 @@ from numpy.linalg import norm
 from sentence_transformers import SentenceTransformer
 from create_montage import show_outfit_montage
 import requests
+from dotenv import load_dotenv
 # ── 0. CONFIG ─────────────────────────────────────────────────────────────────
 # os.environ["OPENAI_API_KEY"] = "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"
+
+
+load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 OPENWEATHER_KEY = '04471ccf8500d004f5818580138d04d2'
 MODEL = "gpt-4-turbo"
@@ -78,9 +83,10 @@ def retrieve_candidates(query: str, k: int = 10):
 def build_prompt(query: str, candidates: list, weather: dict, feedback: str = None):
     msgs = [
         {"role": "system", "content":
-            "You are an AI stylist. You must ONLY choose from the provided item ID section. "
-            "Return a JSON object with keys `top`, `bottom`, `outerwear` along with ids "
-            "and a `comment` explaining your choice."
+            "You are an AI stylist. You must ONLY choose from the candidates"
+            "Do NOT invent generic terms like “outerwear” or “top” — use exactly one of the IDs. "
+            "Return a JSON object with keys `top`, `bottom`, `outerwear` along with ids"
+            "and a `comment` explaining your choice based on current weather, occasion (if mentioned) and mood (if mentioned)."
         },
         {"role": "user", "content": (
             f"Style preferences:\n"
@@ -100,20 +106,21 @@ def build_prompt(query: str, candidates: list, weather: dict, feedback: str = No
                      "still using only the provided item IDs."})
     return msgs
 
+# ── 5. ASK THE LLM ─────────────────────────────────────────────────────────────
 def ask_stylist(prompt_messages):
-    resp = openai.ChatCompletion.create(
-        model=MODEL,
-        messages=prompt_messages,
-        temperature=0,
-        max_tokens=200
+    resp = openai.chat.completions.create(
+      model=MODEL,
+      messages=prompt_messages,
+      temperature=0,
+      max_tokens=200
     )
+    print(resp.choices[0].message.content)
     return resp.choices[0].message.content
-
 # ── 5. MAIN ────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     # 1) Dynamic city (hard-coded for now)
-    city = "Boston"
+    city = "New York"  # e.g. "San Francisco", "New York", "Tokyo"
 
     # 2) Fetch & parse
     raw = get_weather_by_city(OPENWEATHER_KEY, city)
@@ -122,11 +129,17 @@ if __name__ == "__main__":
     weather = parse_weather(raw)
 
     # 3) Build + retrieve + ask stylist
-    user_query = "Can you suggest a party dress for today?"
+    user_query = "Suggest a business casual for me?"
     candidates = retrieve_candidates(user_query, k=10)
+
+    print(candidates)
     prompt = build_prompt(user_query, candidates, weather)
+
     suggestion = ask_stylist(prompt)
-    print("Stylist suggestion:\n", suggestion)
+
+
+
+    # print("Stylist suggestion:\n", suggestion)
 
     # 4) Display montage
     suggestion_dict = json.loads(suggestion)

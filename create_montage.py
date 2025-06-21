@@ -2,6 +2,7 @@ import os
 import re
 from PIL import Image, ImageDraw, ImageFont
 import matplotlib.pyplot as plt
+import textwrap
 
 def show_outfit_montage(
     suggestion: dict,
@@ -38,7 +39,18 @@ def show_outfit_montage(
     images = []
     for idx, p in enumerate(paths):
         if p and os.path.exists(p):
-            img = Image.open(p).convert("RGB").resize(image_size)
+            img = Image.open(p).convert("RGB")
+            # Pad image to keep aspect ratio
+            orig_w, orig_h = img.size
+            target_w, target_h = image_size
+            ratio = min(target_w / orig_w, target_h / orig_h)
+            new_w, new_h = int(orig_w * ratio), int(orig_h * ratio)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            padded = Image.new("RGB", image_size, (255,255,255))
+            pad_x = (target_w - new_w) // 2
+            pad_y = (target_h - new_h) // 2
+            padded.paste(img, (pad_x, pad_y))
+            img = padded
         else:
             # grey placeholder
             img = Image.new("RGB", image_size, (200,200,200))
@@ -53,7 +65,15 @@ def show_outfit_montage(
     margin = 10
     # measure text areas
     measure = ImageDraw.Draw(Image.new("RGB",(1,1)))
-    title_h = measure.textbbox((0,0), title, font=ImageFont.load_default())[3]
+    title_font = None
+    try:
+        title_font = ImageFont.truetype("Arial.ttf", 28)
+    except Exception:
+        title_font = ImageFont.load_default()
+    heading = "OOTD"
+    # Use title_font for all title measurements
+    title_h = measure.textbbox((0,0), heading, font=title_font)[3]
+    tw = measure.textbbox((0,0), heading, font=title_font)[2]
     cmnt_h  = measure.textbbox((0,0), suggestion["comment"], 
                                font=ImageFont.load_default())[3]
 
@@ -62,9 +82,8 @@ def show_outfit_montage(
     canvas = Image.new("RGB",(canvas_w,canvas_h),"white")
     draw = ImageDraw.Draw(canvas)
 
-    # draw title
-    tw = measure.textbbox((0,0), title, font=ImageFont.load_default())[2]
-    draw.text(((canvas_w-tw)//2, 5), title, font=ImageFont.load_default(), fill="black")
+    # draw title with a cleaner font and custom heading
+    draw.text(((canvas_w-tw)//2, 5), heading, font=title_font, fill="#22223B")
 
     # paste images
     y0 = title_h + margin
@@ -73,9 +92,39 @@ def show_outfit_montage(
         canvas.paste(img, (x0, y0))
         x0 += image_size[0] + margin
 
-    # draw comment
-    draw.text((5, y0 + image_size[1] + margin), 
-              suggestion["comment"], font=ImageFont.load_default(), fill="black")
+    # draw comment (wrap to fit actual pixel width, and dynamically expand canvas if needed)
+    comment = suggestion["comment"]
+    font = ImageFont.load_default()
+    max_width = canvas_w - 10
+    # Wrap comment to fit pixel width
+    lines = []
+    for line in comment.splitlines():
+        # Use textwrap to split, but check pixel width for each line
+        for chunk in textwrap.wrap(line, width=100):
+            # Further split if pixel width is too large
+            while font.getbbox(chunk)[2] > max_width:
+                # Find a split point
+                for i in range(len(chunk)-1, 0, -1):
+                    if chunk[i] == ' ':
+                        break
+                if i == 0:
+                    break
+                lines.append(chunk[:i])
+                chunk = chunk[i+1:]
+            lines.append(chunk)
+    # Dynamically expand canvas height if needed
+    comment_height = sum([font.getbbox(line)[3] + 2 for line in lines])
+    needed_canvas_h = title_h + margin + image_size[1] + margin + comment_height + margin
+    if needed_canvas_h > canvas_h:
+        # Create a new, taller canvas and copy old content
+        new_canvas = Image.new("RGB", (canvas_w, needed_canvas_h), "white")
+        new_canvas.paste(canvas, (0, 0))
+        canvas = new_canvas
+        draw = ImageDraw.Draw(canvas)
+    y_comment = y0 + image_size[1] + margin
+    for line in lines:
+        draw.text((5, y_comment), line, font=font, fill="black")
+        y_comment += font.getbbox(line)[3] + 2
 
     # show
     plt.figure(figsize=(len(images)*2, 4))

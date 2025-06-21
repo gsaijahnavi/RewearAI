@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 from create_montage import show_outfit_montage
 
 # ── 0. CONFIG ─────────────────────────────────────────────────────────────────
-os.environ["OPENAI_API_KEY"] = "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"
+# os.environ["OPENAI_API_KEY"] = "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"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 

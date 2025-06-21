@@ -1,0 +1,247 @@
+[
+  {
+    "id": "item_0",
+    "image_path": "Sample_Images/seasonal wear/puffer2.png",
+    "category": "seasonal wear",
+    "item": "puffer",
+    "item_id": "puffer2"
+  },
+  {
+    "id": "item_1",
+    "image_path": "Sample_Images/seasonal wear/puffer1.png",
+    "category": "seasonal wear",
+    "item": "puffer",
+    "item_id": "puffer1"
+  },
+  {
+    "id": "item_2",
+    "image_path": "Sample_Images/seasonal wear/trench1.png",
+    "category": "seasonal wear",
+    "item": "trench",
+    "item_id": "trench1"
+  },
+  {
+    "id": "item_3",
+    "image_path": "Sample_Images/seasonal wear/trench2.png",
+    "category": "seasonal wear",
+    "item": "trench",
+    "item_id": "trench2"
+  },
+  {
+    "id": "item_4",
+    "image_path": "Sample_Images/seasonal wear/denim1.png",
+    "category": "seasonal wear",
+    "item": "denim",
+    "item_id": "denim1"
+  },
+  {
+    "id": "item_5",
+    "image_path": "Sample_Images/seasonal wear/leather1.png",
+    "category": "seasonal wear",
+    "item": "leather",
+    "item_id": "leather1"
+  },
+  {
+    "id": "item_6",
+    "image_path": "Sample_Images/Occasion Wear/dressy_skirt.png",
+    "category": "Occasion Wear",
+    "item": "dressy_skirt",
+    "item_id": "dressy_skirt"
+  },
+  {
+    "id": "item_7",
+    "image_path": "Sample_Images/Occasion Wear/black_dress2.png",
+    "category": "Occasion Wear",
+    "item": "black_dress",
+    "item_id": "black_dress2"
+  },
+  {
+    "id": "item_8",
+    "image_path": "Sample_Images/Occasion Wear/black_dress1.png",
+    "category": "Occasion Wear",
+    "item": "black_dress",
+    "item_id": "black_dress1"
+  },
+  {
+    "id": "item_9",
+    "image_path": "Sample_Images/Occasion Wear/statement_top.png",
+    "category": "Occasion Wear",
+    "item": "statement_top",
+    "item_id": "statement_top"
+  },
+  {
+    "id": "item_10",
+    "image_path": "Sample_Images/Lounge wear/jog1.png",
+    "category": "Lounge wear",
+    "item": "jog",
+    "item_id": "jog1"
+  },
+  {
+    "id": "item_11",
+    "image_path": "Sample_Images/Lounge wear/jog2.png",
+    "category": "Lounge wear",
+    "item": "jog",
+    "item_id": "jog2"
+  },
+  {
+    "id": "item_12",
+    "image_path": "Sample_Images/Lounge wear/tee1.png",
+    "category": "Lounge wear",
+    "item": "tee",
+    "item_id": "tee1"
+  },
+  {
+    "id": "item_13",
+    "image_path": "Sample_Images/Lounge wear/leggings1.png",
+    "category": "Lounge wear",
+    "item": "leggings",
+    "item_id": "leggings1"
+  },
+  {
+    "id": "item_14",
+    "image_path": "Sample_Images/Lounge wear/tee2.png",
+    "category": "Lounge wear",
+    "item": "tee",
+    "item_id": "tee2"
+  },
+  {
+    "id": "item_15",
+    "image_path": "Sample_Images/Lounge wear/leggings2.png",
+    "category": "Lounge wear",
+    "item": "leggings",
+    "item_id": "leggings2"
+  },
+  {
+    "id": "item_16",
+    "image_path": "Sample_Images/Lounge wear/hoodie2.png",
+    "category": "Lounge wear",
+    "item": "hoodie",
+    "item_id": "hoodie2"
+  },
+  {
+    "id": "item_17",
+    "image_path": "Sample_Images/Lounge wear/hoodie1.png",
+    "category": "Lounge wear",
+    "item": "hoodie",
+    "item_id": "hoodie1"
+  },
+  {
+    "id": "item_18",
+    "image_path": "Sample_Images/Casual Basics/Tshirt2.png",
+    "category": "Casual Basics",
+    "item": "tshirt",
+    "item_id": "tshirt2"
+  },
+  {
+    "id": "item_19",
+    "image_path": "Sample_Images/Casual Basics/Jeans2.png",
+    "category": "Casual Basics",
+    "item": "jeans",
+    "item_id": "jeans2"
+  },
+  {
+    "id": "item_20",
+    "image_path": "Sample_Images/Casual Basics/Tshirt1.png",
+    "category": "Casual Basics",
+    "item": "tshirt",
+    "item_id": "tshirt1"
+  },
+  {
+    "id": "item_21",
+    "image_path": "Sample_Images/Casual Basics/Jeans1.png",
+    "category": "Casual Basics",
+    "item": "jeans",
+    "item_id": "jeans1"
+  },
+  {
+    "id": "item_22",
+    "image_path": "Sample_Images/Casual Basics/Cardigan1.png",
+    "category": "Casual Basics",
+    "item": "cardigan",
+    "item_id": "cardigan1"
+  },
+  {
+    "id": "item_23",
+    "image_path": "Sample_Images/Casual Basics/Cardigan2.png",
+    "category": "Casual Basics",
+    "item": "cardigan",
+    "item_id": "cardigan2"
+  },
+  {
+    "id": "item_24",
+    "image_path": "Sample_Images/Casual Basics/Blouse2.png",
+    "category": "Casual Basics",
+    "item": "blouse",
+    "item_id": "blouse2"
+  },
+  {
+    "id": "item_25",
+    "image_path": "Sample_Images/Casual Basics/Blouse1.png",
+    "category": "Casual Basics",
+    "item": "blouse",
+    "item_id": "blouse1"
+  },
+  {
+    "id": "item_26",
+    "image_path": "Sample_Images/Business-Formal Wear/Blazer2.png",
+    "category": "Business-Formal Wear",
+    "item": "blazer",
+    "item_id": "blazer2"
+  },
+  {
+    "id": "item_27",
+    "image_path": "Sample_Images/Business-Formal Wear/Blazer3.png",
+    "category": "Business-Formal Wear",
+    "item": "blazer",
+    "item_id": "blazer3"
+  },
+  {
+    "id": "item_28",
+    "image_path": "Sample_Images/Business-Formal Wear/Blazer1.png",
+    "category": "Business-Formal Wear",
+    "item": "blazer",
+    "item_id": "blazer1"
+  },
+  {
+    "id": "item_29",
+    "image_path": "Sample_Images/Business-Formal Wear/skirt2.png",
+    "category": "Business-Formal Wear",
+    "item": "skirt",
+    "item_id": "skirt2"
+  },
+  {
+    "id": "item_30",
+    "image_path": "Sample_Images/Business-Formal Wear/skirt1.png",
+    "category": "Business-Formal Wear",
+    "item": "skirt",
+    "item_id": "skirt1"
+  },
+  {
+    "id": "item_31",
+    "image_path": "Sample_Images/Business-Formal Wear/Pants1.png",
+    "category": "Business-Formal Wear",
+    "item": "pants",
+    "item_id": "pants1"
+  },
+  {
+    "id": "item_32",
+    "image_path": "Sample_Images/Business-Formal Wear/Pants2.png",
+    "category": "Business-Formal Wear",
+    "item": "pants",
+    "item_id": "pants2"
+  },
+  {
+    "id": "item_33",
+    "image_path": "Sample_Images/Business-Formal Wear/Shirt1.png",
+    "category": "Business-Formal Wear",
+    "item": "shirt",
+    "item_id": "shirt1"
+  },
+  {
+    "id": "item_34",
+    "image_path": "Sample_Images/Business-Formal Wear/Shirt2.png",
+    "category": "Business-Formal Wear",
+    "item": "shirt",
+    "item_id": "shirt2"
+  }
+]

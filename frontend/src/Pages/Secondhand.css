@@ -1,0 +1,76 @@
+.secondhand-container {
+  padding: 24px;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: linear-gradient(to bottom, #fff8fc, #f3e8ff);
+  min-height: 100vh;
+  text-align: center;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.intro {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.listed-section h3,
+.closet-section h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.placeholder {
+  font-style: italic;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.item-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.item-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-size: 14px;
+  color: #888;
+}
+
+.sell-btn,
+.toggle-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ff80ff, #9288ff);
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: all 0.2s ease;
+}
+
+.sell-btn:hover,
+.toggle-btn:hover {
+  transform: scale(1.05);
+}

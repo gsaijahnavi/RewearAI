@@ -5,9 +5,11 @@ import openai
 from numpy.linalg import norm
 from sentence_transformers import SentenceTransformer
 from create_montage import show_outfit_montage
+from dotenv import load_dotenv
 
 # ── 0. CONFIG ─────────────────────────────────────────────────────────────────
-# os.environ["OPENAI_API_KEY"] = "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"
+
+load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -62,7 +64,7 @@ def retrieve_candidates(query: str, k: int = 10):
     q_emb = clip.encode(query, convert_to_tensor=True).cpu().numpy()
     sims = (embeddings @ q_emb) / (norm(embeddings, axis=1) * norm(q_emb) + 1e-8)
     idxs = np.argsort(sims)[-k:][::-1]
-    return [ metadata[i]["item"] for i in idxs ]
+    return [ metadata[i]["item_id"] for i in idxs ]
 
 
 def build_prompt(query: str, candidates: list, feedback: str = None):
@@ -71,7 +73,7 @@ def build_prompt(query: str, candidates: list, feedback: str = None):
     """
     msgs = [
         {"role": "system", "content":
-            "You are an AI stylist. You must ONLY choose from the provided item IDs. "
+            "You are an AI stylist. You must ONLY choose from the provided item ID section of "
             "Do NOT invent generic terms like “outerwear” or “top” — use exactly one of the IDs. "
             "Return a JSON object with keys `top`, `bottom`, `outerwear` along with ids"
             "and a `comment` explaining your choice."
@@ -119,30 +121,33 @@ def ask_stylist(prompt_messages):
 
 # ── 6. PUT IT ALL TOGETHER ────────────────────────────────────────────────────
 if __name__ == "__main__":
-    user_query = "Can you suggest a rainy outfit for today?"
+    user_query = "Can you suggest a party dress for today?"
     print("User query:", user_query)
 
     
     # 1) retrieve
     candidates = retrieve_candidates(user_query, k=10)
+
+
     # 2) build prompt
     prompt = build_prompt(user_query, candidates)
     # 3) get suggestion
     suggestion = ask_stylist(prompt)
     print("Initial suggestion:\n", suggestion)
 
-    # 4) simulate feedback
-    print("\n-- User says: I don't like the outerwear --")
-    prompt2 = build_prompt(user_query, candidates, feedback="I don't like the outerwear")
-    suggestion2 = ask_stylist(prompt2)
-    print("Revised suggestion:\n", suggestion2)
+    # # 4) simulate feedback
+    # print("\n-- User says: I don't like the outerwear --")
+    # prompt2 = build_prompt(user_query, candidates, feedback="I don't like the outerwear")
+    # suggestion2 = ask_stylist(prompt2)
+    # print("Revised suggestion:\n", suggestion2)
 
-    suggestion2_dict = json.loads(suggestion2)
+    # suggestion2_dict = json.loads(suggestion2)
 
     # load your metadata_store (same as before)
     with open("clip_image_metadata.json", "r") as f:
         metadata_store = json.load(f)
 
+    suggestion2_dict = json.loads(suggestion)
     # display the revised outfit
     show_outfit_montage(
         suggestion=suggestion2_dict,

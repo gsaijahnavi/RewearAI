@@ -58,28 +58,3 @@ with open("clip_image_metadata.json", "w") as f:
 
 print(f"Saved {len(embeddings_store)} embeddings and metadata.")
 
-# # Load CLIP model
-# model = SentenceTransformer("clip-ViT-B-32")
-
-# # Load image embeddings and metadata
-# embeddings = np.load("clip_image_embeddings.npy")
-# with open("clip_image_metadata.json", "r") as f:
-#     metadata = json.load(f)
-
-# # User prompt
-# user_prompt = "can you suggest rainy outfit for today"
-
-# # Get text embedding for the prompt
-# text_emb = model.encode(user_prompt, convert_to_tensor=True).cpu().numpy()
-
-# # Compute cosine similarity
-# from numpy.linalg import norm
-# sims = np.dot(embeddings, text_emb) / (norm(embeddings, axis=1) * norm(text_emb) + 1e-8)
-
-# # Get top 5 matches
-# top_k = 5
-# best_idx = np.argsort(sims)[-top_k:][::-1]
-
-# print("Top outfit suggestions for:", user_prompt)
-# for idx in best_idx:
-#     print(f"Score: {sims[idx]:.3f} | Category: {metadata[idx]['category']} | Item: {metadata[idx]['item']} | Path: {metadata[idx]['image_path']}")

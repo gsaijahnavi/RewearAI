@@ -121,7 +121,7 @@ def ask_stylist(prompt_messages):
 
 # ── 6. PUT IT ALL TOGETHER ────────────────────────────────────────────────────
 if __name__ == "__main__":
-    user_query = "Can you suggest a party dress for today?"
+    user_query = "Its pretty cold, can you suggest something warm for me today?"
     print("User query:", user_query)
 
     

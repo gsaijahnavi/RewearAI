@@ -190,7 +190,14 @@ export default function ChatbotPage({ styleInfo, onAddToHistory }) {
         <div className="feedback-section">
           <textarea value={feedback} onChange={e => setFeedback(e.target.value)} placeholder="Feedback (e.g. change top, prefer lighter color, etc)" />
           <button onClick={handleFeedback} disabled={feedbackLoading || !feedback}>{feedbackLoading ? "Updating..." : "Send Feedback"}</button>
-          <button onClick={() => { onAddToHistory(recommendation); setHistory([...history, recommendation]); }} style={{ marginLeft: 8 }}>Add to History</button>
+          <button
+            onClick={() => { onAddToHistory(recommendation); setHistory([...history, recommendation]); }}
+            style={{ marginLeft: 8, background: '#4F46E5', color: 'white', border: 'none', borderRadius: 4, padding: '8px 16px', cursor: 'pointer', fontWeight: 600, boxShadow: '0 2px 6px rgba(0,0,0,0.08)' }}
+            onMouseOver={e => e.currentTarget.style.background = '#3730A3'}
+            onMouseOut={e => e.currentTarget.style.background = '#4F46E5'}
+          >
+            Add to History
+          </button>
         </div>
       )}
     </div>

@@ -88,7 +88,7 @@ def recommend(req: RecommendRequest):
         sims = (embeddings @ q_emb) / (norm(embeddings, axis=1) * norm(q_emb) + 1e-8)
         idxs = np.argsort(sims)[-k:][::-1]
         return [metadata[i]["item_id"] for i in idxs]
-    candidates = retrieve_candidates(req.user_query, k=10)
+    candidates = retrieve_candidates(req.user_query, k=20)
     # 3. Prompt and LLM
     def build_prompt(query: str, candidates: list, feedback: Optional[str] = None, prev_outfit: Optional[dict] = None):
         # Dummy outfit history for now (should be user-specific in real app)
@@ -214,6 +214,61 @@ def upload_wardrobe(folder_path: str = Body(..., embed=True)):
         with open("clip_image_metadata.json", "w") as f:
             json.dump(metadata, f, indent=2)
     return {"message": f"Processed {len(embeddings)} images from folder.", "num_images": len(embeddings)}
+
+@app.post("/upload_wardrobe_files", response_model=WardrobeUploadResponse)
+def upload_wardrobe_files(files: List[UploadFile] = File(...)):
+    """
+    Accepts a list of image files uploaded from the frontend, processes them for embedding/metadata.
+    Metadata matches the structure from 01_create_metadata_embeddings.py.
+    """
+    import re
+    import shutil
+    from PIL import Image
+    import torch
+    from torchvision import transforms
+
+    upload_dir = os.path.join("Sample_Images", "Uploaded")
+    os.makedirs(upload_dir, exist_ok=True)
+    embeddings = []
+    metadata = []
+    item_count = 0
+    clip_model = SentenceTransformer("clip-ViT-B-32")
+    preprocess = transforms.Compose([
+        transforms.Resize(224),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.4815, 0.4578, 0.4082], std=[0.2686, 0.2613, 0.2758])
+    ])
+    for file in files:
+        try:
+            fname = file.filename
+            save_path = os.path.join(upload_dir, fname)
+            with open(save_path, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+            category = os.path.basename(os.path.dirname(save_path))
+            item_name = os.path.splitext(fname)[0]
+            item_list = item_name.lower()
+            item_name_clean = re.sub(r'\d+', '', item_name).lower().strip()
+            item_id = f"item_{item_count}"
+            item_count += 1
+            image = Image.open(save_path).convert("RGB")
+            with torch.no_grad():
+                emb = clip_model.encode([image], convert_to_tensor=True).cpu().numpy()
+            embeddings.append(emb[0])
+            metadata.append({
+                "id": item_id,
+                "image_path": save_path,
+                "category": category,
+                "item": item_name_clean,
+                "item_id": item_list
+            })
+        except Exception as e:
+            continue
+    if embeddings:
+        np.save("clip_image_embeddings.npy", np.array(embeddings))
+        with open("clip_image_metadata.json", "w") as f:
+            json.dump(metadata, f, indent=2)
+    return {"message": f"Processed {len(embeddings)} images from upload.", "num_images": len(embeddings)}
 
 @app.get("/load_wardrobe")
 def load_wardrobe():

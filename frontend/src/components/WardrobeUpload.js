@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { uploadWardrobe } from "../api";
+import { uploadWardrobeFiles } from "../api";
 
 function WardrobeUpload() {
   const [files, setFiles] = useState([]);
@@ -14,7 +14,7 @@ function WardrobeUpload() {
     setLoading(true);
     setMessage("");
     try {
-      const res = await uploadWardrobe(files);
+      const res = await uploadWardrobeFiles(files);
       setMessage(res.message);
     } catch {
       setMessage("Upload failed");
@@ -25,8 +25,14 @@ function WardrobeUpload() {
 
   return (
     <div className="wardrobe-upload">
-      <h2>Upload Your Wardrobe</h2>
-      <input type="file" multiple onChange={handleChange} />
+      <h2>Upload Your Wardrobe Folder</h2>
+      <input
+        type="file"
+        multiple
+        webkitdirectory="true"
+        directory="true"
+        onChange={handleChange}
+      />
       <button onClick={handleUpload} disabled={loading || files.length === 0}>
         {loading ? "Uploading..." : "Upload"}
       </button>

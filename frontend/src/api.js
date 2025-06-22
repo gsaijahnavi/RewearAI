@@ -20,6 +20,17 @@ export async function uploadWardrobe(folderPath) {
   return res.json();
 }
 
+export async function uploadWardrobeFiles(files) {
+  const formData = new FormData();
+  files.forEach((file) => formData.append("files", file));
+  const res = await fetch(`${API_BASE}/upload_wardrobe_files`, {
+    method: "POST",
+    body: formData,
+  });
+  if (!res.ok) throw new Error("Failed to upload wardrobe");
+  return res.json();
+}
+
 export async function getHistory() {
   const res = await fetch(`${API_BASE}/outfit_history`);
   if (!res.ok) throw new Error("Failed to load history");

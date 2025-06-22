@@ -32,43 +32,6 @@ This repository contains the back-end scripts, front-end application, sample dat
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-* Python 3.8+
-* Node.js 16+ & npm (for the frontend)
-* Git CLI
-* Access to GPU (optional, for faster embedding generation)
-
-### Installation
-
-1. **Clone the repo**
-
-   ```bash
-   git clone https://github.com/your-org/closetverse.git
-   cd closetverse
-   ```
-
-2. **Setup Python environment**
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate      # Linux/macOS
-   venv\Scripts\activate       # Windows
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
-
-3. **Install frontend dependencies**
-
-   ```bash
-   cd frontend
-   npm install
-   ```
-
----
-
 ## 🛠️ Usage
 
 ### 1. Generate Image Embeddings & Metadata
@@ -97,47 +60,37 @@ python create_montage.py \
   --output montage.png
 ```
 
-### 4. Start Backend Server
+✨ Key Features
 
-```bash
-uvicorn app:app --reload
-```
+Automatic Closet Ingestion
 
-Open your browser at `http://localhost:8000/docs` to explore the API.
+One-tap sync with Gmail/Outlook for receipt parsing and OAuth connections to Amazon, Shopify, and other retailers.
 
-### 5. Launch Frontend App
+Vision-based add: snap a photo of a garment to auto-tag brand, category, color, and style embedding.
 
-```bash
-cd frontend
-npm start
-```
+AI-Powered Daily Stylist
 
-Follow prompts to run on iOS/Android simulator or web environment.
+"Today’s Fit" notifications every morning use GPT-driven insights, local weather, calendar context, and your closet inventory.
 
----
+Simple chat interface to ask for outfit ideas by occasion or mood.
 
-## 🔧 Configuration
+Social OOTD Feed
 
-* **app.py** reads environment variables for API keys:
+Vertical photo/video posts auto-tag garments from your closet.
 
-  * `OPENAI_API_KEY` — your OpenAI credential for LLM calls
-  * `CLIP_MODEL` — model name for embedding (e.g., `openai/clip-vit-base-patch32`)
-* **frontend/.env** (create if missing) for any client-side keys (e.g., maps, auth)
+Likes, comments, saves, and hashtag challenges fuel community engagement.
 
----
+One-Tap Resale Marketplace
 
-## 🤝 Contributing
+Every item has structured metadata and past OOTD images—tap “Sell” to list with price suggestions and buyer trust indicators.
 
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "Add awesome feature"`
-4. Push to branch: `git push origin feature/your-feature`
-5. Open a Pull Request.
+Integrated payment & shipping via Stripe Connect.
 
-Please follow the existing code style and include tests where applicable.
+Sustainability & Analytics
 
----
+Wear-count tracking, cost-per-wear metrics, and "carbon saved" badges highlight under-utilized items and encourage smarter shopping.
 
-## 📄 License
+Gap analysis surfaces missing essentials and suggests affiliate products to complete your wardrobe.
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+

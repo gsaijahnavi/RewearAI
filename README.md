@@ -3,7 +3,7 @@ Your smart personal stylist that helps you reimagine outfits from your own wardr
 
 ## 📋 Project Overview
 
-ClosetVerse is an AI-driven digital wardrobe platform that:
+RewearAI is an AI-driven digital wardrobe platform that:
 
 * **Ingests** user product photos and generates image embeddings.
 * **Enriches** clothing metadata and builds recommendations with LLMs.

@@ -1,0 +1,59 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f7fa;
+  margin: 0;
+  padding: 0;
+}
+.app-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+h1 {
+  text-align: center;
+  color: #3a3a6a;
+}
+h2 {
+  color: #4a4a8a;
+  margin-top: 2rem;
+}
+input, textarea, button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0 1rem 0;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+button {
+  background: #4a4a8a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+.error, .upload-message, .feedback-message {
+  color: #b00;
+  margin-bottom: 1rem;
+}
+.outfit-montage {
+  margin-top: 2rem;
+  text-align: center;
+}
+.montage-comment {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #555;
+}
+.history {
+  margin-top: 2rem;
+}
